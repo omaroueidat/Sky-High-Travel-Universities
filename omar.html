@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studying Abroad</title>
+    <link rel="stylesheet" href="style2.css">
+    <script src="Assests/javascript/jquery.js"></script>
+    <script>
+        //to go to the next image
+        function next_image(src1,src2,src3,src4,src5,src6,img_id){
+            var image = document.getElementById(img_id).getAttribute("src");
+            var nextimage = document.getElementById(img_id);
+            //defining array of link to the images to navigate throuh them
+            var images = ["Assests/" + src1,
+                          "Assests/" + src2,
+                          "Assests/" + src3,
+                          "Assests/" + src4,
+                          "Assests/" + src5,
+                          "Assests/" + src6];
+            //making a loop to search for the current image in the array of images
+            var i=0;
+            for (i=0;i<5;i++){
+                if (images[i] === image) //locate the currnet image in the array
+                    break;
+            }
+            if (i==5)
+                nextimage.src = images[0];    //if we are in the last image go to the first image
+            else
+                nextimage.src = images[i+1];   //if we are in any i-th image, go to the next image(i+1)
+
+        }
+        //to go to the previous image
+        function previous_image(src1,src2,src3,src4,src5,src6,img_id){
+            var image = document.getElementById(img_id).getAttribute("src");
+            var nextimage = document.getElementById(img_id);
+            //defining array of link to the images to navigate throuh them
+            var images = ["Assests/" + src1,
+                          "Assests/" + src2,
+                          "Assests/" + src3,
+                          "Assests/" + src4,
+                          "Assests/" + src5,
+                          "Assests/" + src6];
+            //making a loop to search for the current image in the array of images
+            var i=0;
+            for (i=0;i<5;i++){
+                if (images[i] === image) //locate the currnet image in the array
+                    break;
+            }
+            if (i==0)
+                nextimage.src = images[5];    //if we are in the first image go to the last image
+            else
+                nextimage.src = images[i-1];   //if we are in any i-th image, go to the previous image(i-1)
+        }
+
+        function view(div_id){
+            console.log(div_id);
+            var input = '#' + div_id;
+            $(document).ready(function(){
+                $('#' + div_id).slideToggle();
+            });
+        }
+
+        function view_end(section_id,div_id){
+            var input = '#' + div_id;
+            $(document).ready(function(){
+                
+                var check_hidden_element = document.getElementById(div_id).style.display;
+                if (check_hidden_element === "none"){
+                    document.getElementById(section_id).style.height = "4000px";
+                    $('#' + div_id).slideToggle();
+                    
+                }
+                if (check_hidden_element === ""){
+                    document.getElementById(section_id).style.height = "4000px";
+                    $('#' + div_id).slideToggle();
+                }
+                else if (check_hidden_element === "block"){
+                    $('#' + div_id).slideToggle();
+                    document.getElementById(section_id).style.height = "3400px";
+                }
+
+            });
+        }
+
+
+
+        
+        $(document).ready(function(){
+            document.getElementById("lastm").innerHTML = document.lastModified;
+        });
+
+        function validate_form(form_id){
+            var valid = false;
+            var email = document.getElementById(form_id).email.value;
+            var textarea = document.getElementById(form_id).textarea.value;
+            var name = document.getElementById(form_id).name.value;
+            var email_format = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+            var textarea_format = /^(\w+(\s|\n|\t)*)*$/;
+            var name_format = /^[A-Za-z]{3,16}\s[A-Za-z]{3,25}$/;
+            if (email_format.test(email)==1 && textarea_format.test(textarea)==1 && name_format.test(name)==1)
+                valid = true;
+            else{
+                if (!email_format.test(email))
+                    alert("Enter a valid Email");
+                if (!textarea_format.test(textarea))
+                    alert("Enter a proper text");
+                if (!name_format.test(name))
+                    alert("Enter a correct name");
+                valid = false;
+                
+            }
+            return valid;
+        }
+
+    </script>
+
+    <style>
+        section{
+            background-color: #F0F8FF;
+            margin-bottom: 270px;
+            margin-top: 220px;
+            height: 2400px;
+            padding-top: 23px;
+        }
+        .section{
+            margin-left:50px;
+            margin-right:50px;
+        }
+        .title{
+            text-align: center;
+            color: #012169;
+            text-shadow: 3px 3px 4px #AFDBF5;
+            font-size: 20px;
+        }
+        .country_description{
+            text-align: center;
+            font-size: 19px;
+            margin-bottom: 65px;
+            font-style: italic;
+        }
+        .uni_name{
+            font-size: 23px;
+            color:#012169;
+
+        }
+        .uni_description{
+            margin-left: 50px;
+            font-size: 20px;
+            font-family: Open Sans;
+            margin-bottom: 50px;
+        }
+        .nav_image{
+            transition: 300ms;
+        }
+        .nav_image:hover{
+            box-shadow: 7px 5px 5px #888;
+            transition: 300ms;
+        }
+
+        .nav_image:active{
+            transform: translate(3px,3px);
+        }
+        .hidden{
+            margin-top: -50px;
+            display: none;
+            transition: 40ms;
+            margin-bottom: 80px;
+        }
+        
+        .hidden_best_majors{
+            font-size: 17px;
+            font-family: Georgia;
+            text-align: center;
+        }
+        .hidden_description{
+            margin-left: 50px;
+            font-size: 20px;
+            font-family: Open Sans;
+            margin-bottom: 50px;
+        }
+        td{
+            font-family: Verdana, Tahoma, sans-serif;
+            text-align: center;
+            padding: 8px;
+        }
+        td:hover{
+            box-shadow: inset 0px 10px 20px 2px rgba(0, 0, 0, 0.425);
+            transition: 100ms;
+        }
+        .hidden_footer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-style: italic;
+          }
+          footer { 
+            background-color: #6082B6; 
+            font-size: small;
+            font-style: italic; 
+            text-align: center; 
+            padding: 1em;
+            margin-top: 8.6em;;
+            height:5.2em;
+            color: #012169;
+            border-radius: 10px;
+               
+         }
+        @media (max-width: 850px){
+            nav{
+                margin-left: 15px;
+                margin-right: 160px;
+                margin-top: 50px;
+            }
+            .scroll-link{
+                background-color: #2E5090;
+                color: white;
+                padding: 10px;
+                clear: right;
+            }
+            .scroll-link2{
+                margin-left: 15px;
+                text-decoration: none;
+                color: white;
+                transition: 400ms;
+            
+            }
+        }
+        label{
+            color:#AFDBF5;
+            font-size:20px;
+            font-family: serif;
+        }
+        input,select{
+            border-radius: 10px;
+        }
+        textarea{
+            border-radius: 10px;
+            align-content: center;
+        }
+        #submit,#reset{
+            background-color: #F0F8FF;
+            color:#2E5090;
+            font-size: 14px;
+        }
+        a{
+            text-decoration: none;
+        }
+        #scroll-to-top{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            background-color: #2E5090;
+            color:#F0F8FF;
+            border-radius: 10px;
+            width: 70px;
+            transition: 300ms;
+        }
+        #scroll-to-top:hover{
+            box-shadow: inset 0px 10px 20px 2px rgba(0, 0, 0, 0.315);             
+        }
+        #scroll-to-top:active{
+            transform: translateY(5px);
+        }
+
+        @keyframes shake {
+            0% {
+              transform: translateX(0);
+            }
+            20% {
+              transform: translateX(-10px);
+            }
+            40% {
+              transform: translateX(10px);
+            }
+            60% {
+              transform: translateX(-10px);
+            }
+            80% {
+              transform: translateX(10px);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+          
+          .shake {
+            animation: shake 0.5s;
+          }
+
+        
+    </style>
+    <link rel="icon" href="Assests/others/logo.png" type="image/ico">
+</head>
+<body>
+    
+        <div class="sub-header">
+            <h2 id="Inner_Header">We will help you choose the best</h2>
+            <a href="home.html" id="Return_Home_Button_Link" class="justify_link" style="width:100px;"><h3 id="Return_Home_Button">Home</h3></a>
+        </div>
+    
+    <nav>
+        <img src="Assests/others/books3.png" height="100px" class="image-above">
+        <h3>Are You Searching for the best university to complete your higher education? We represent to you the top universities in these countries:</h3>
+        <div class="scroll-link">
+            <a href="#Dubai" class="scroll-link2">Dubai</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <a href="#Japan" class="scroll-link2">Japan</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <a href="#France" class="scroll-link2">France</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <a href="#Singapore" class="scroll-link2">Singapore</a> &nbsp; &nbsp; &nbsp; &nbsp;
+            <a href="#lebanon" class="scroll-link2">Lebanon</a>
+        </div>
+    </nav>
+    <main>
+        <div id="starting_main">
+            <img src="Assests/others/open-book.png" id="starting_main_image">
+            <div id="Getting_Started">
+                <h5><i>Top-ranked academic programs</i></h5>
+                <h1 style="font-size:47px;"><b>Studying Abroad</b></h1>
+                <p>This is our commitment to providing exceptional support and opportunities for success</p>
+                <br>
+                <a href="#Dubai" id="Get_Started_Button_Link"><span id="Get_Started_Button">Get Started</span></a>
+            </div>
+            <br>
+        </div>
+
+
+
+        <!--Dubai-->
+        <section id="Dubai">
+        <div class="section">
+            <span class="title"><h1 style="font-size: 45px;">Dubai</h1></span>
+            <p class="country_description">Dubai is home to several internationally recognized universities offering diverse and innovative programs for students from around the world.</p>
+
+            <!--Universities of Dubai-->
+
+            <!--1'st uni-->
+            <div id="Wollongong">
+                <h3 class="uni_name"><em>1. University of Wollongong</em></h3>
+                <h5 class="uni_description">The University of Wollongong in Dubai Arabic: جامعة ولونغونغ في دبي is an offshore campus of the University of Wollongong in Dubai, United Arab Emirates. Established in 1993, the university is located in the Dubai Knowledge Park and serves over 3,500 students from more than 108 countries.</h5>
+                <br><br>
+
+                <!--Image that will change when calling the function-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-1" height="75px" onclick="previous_image('Dubia/UOW/UOW-1.jpg','Dubia/UOW/UOW-2.jpg','Dubia/UOW/UOW-3.jpg','Dubia/UOW/UOW-4.jpg','Dubia/UOW/UOW-5.jpg','Dubia/UOW/UOW-6.jpg','UOW');">
+                    <a onclick="view_end('Dubai','sub_Wollongong');" href="#UOW"><img src="Assests/Dubia/UOW/UOW-1.jpg" alt="UOW images" height="400px" width="800px" id="UOW" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-1" height="75px" onclick="next_image('Dubia/UOW/UOW-1.jpg','Dubia/UOW/UOW-2.jpg','Dubia/UOW/UOW-3.jpg','Dubia/UOW/UOW-4.jpg','Dubia/UOW/UOW-5.jpg','Dubia/UOW/UOW-6.jpg','UOW');">
+                </div>
+                
+                <br>
+               
+                
+                <div id="sub_Wollongong" class="hidden">
+                    <h5 class="hidden_best_majors">Best Fields to study in Wollongong: </h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Finance</td></tr>
+                        <tr><td>Management</td></tr>
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Humanities</td></tr>
+                    </table>
+                    <br>
+
+                    <span class="hidden_footer">
+                        You can also enrol in various certification programmes at the university such as the Internet of Things (IOT) and Search Advertising.
+                    </span>
+
+                    <a href="https://www.uowdubai.ac.ae/"><h4 class="hidden_button">visit website</h4></a>
+
+                </div>
+            </div>
+
+            <!--2'nd uni-->
+            <div id="U-Dubai">
+                <h3 class="uni_name"><em>2. University of Dubai</em></h3>
+                <h5 class="uni_description">Offering a wide variety of undergraduate and postgraduate programs, the University of Dubai has become immensely popular in the city.</h5>
+                <br><br>
+
+                <!--Image that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-2" height="75px" onclick="previous_image('Dubia/UOD/UOD-1.jpg','Dubia/UOD/UOD-2.jpg','Dubia/UOD/UOD-3.jpg','Dubia/UOD/UOD-4.jpg','Dubia/UOD/UOD-5.jpg','Dubia/UOD/UOD-6.jpg','UOD');">
+                    <a onclick="view_end('Dubai','sub_UOD');" href="#UOD"><img src="Assests/Dubia/UOD/UOD-1.jpg" alt="UOD images"  height="400px" width="800px" id="UOD" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-2" height="75px" onclick="next_image('Dubia/UOD/UOD-1.jpg','Dubia/UOD/UOD-2.jpg','Dubia/UOD/UOD-3.jpg','Dubia/UOD/UOD-4.jpg','Dubia/UOD/UOD-5.jpg','Dubia/UOD/UOD-6.jpg','UOD');">
+                </div>
+                
+            </div>
+
+            <br>
+
+            <div id="sub_UOD" class="hidden">
+                <p class="uni_description">Licensed nationally by the Ministry of Higher Education and Scientific Research, UD became the first private University in Dubai to hold the AACSB international accreditation in 2009, maintaining for further 5 years till 2019, as well as the first private university in the UAE to hold the ABET-CAC accreditation for its Computing and Information Systems (BS) program in 2006. The curriculum is aligned with international professional certification bodies such as Institute of Leadership & Management (ILM)-UK, which awards BBA HRM and MBA Leadership and HRM graduates with level 5 and 7 certifications. Similarly, the curriculum is aligned with Islamic Economy, Smart City, Innovation and Entrepreneurship initiatives of the government with IBM partnership.</p>
+                <h5 class="hidden_best_majors">Best Majors to study in the University of Dubia: </h5>
+                <table border="1" class="Best_Majors">
+                    <tr><td>Business</td></tr>
+                    <tr><td>Law</td></tr>
+                    <tr><td>Engineering</td></tr>
+                    <tr><td>Information Technology</td></tr>
+                </table>
+                <br>
+                <span class="hidden_footer">
+                    This government-run university consists of three colleges: Dubai Business School, College of Engineering & IT and College of Law that caters to both local and international students. The university offers merit-based scholarships as well as special discounts.
+                </span>
+                <a href="https://ud.ac.ae/"><h4 class="hidden_button">visit website</h4></a>
+            </div>
+
+
+            <!--3'rd university-->
+            <div id="AU-Dubia">
+                <h3 class="uni_name"><em>3. American Univerity in Dubai</em></h3>
+                <h5 class="uni_description">Established in 1995, American University in Dubai (AUD) offers courses and programs leading to officially recognized higher education degrees such as pre-bachelor degrees bachelor degrees, master degrees in several areas of study.</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-3" height="75px" onclick="previous_image('Dubia/AUD/AUD-1.png','Dubia/AUD/AUD-2.jpg','Dubia/AUD/AUD-3.jpg','Dubia/AUD/AUD-4.jpg','Dubia/AUD/AUD-5.jpg','Dubia/AUD/AUD-6.jpg','AUD');">
+                    <a onclick="view_end('Dubai','sub_AUD');" href="#AUD"><img src="Assests/Dubia/AUD/AUD-1.png" alt="AUD images"  height="400px" width="800px" id="AUD" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-3" height="75px" onclick="next_image('Dubia/AUD/AUD-1.png','Dubia/AUD/AUD-2.jpg','Dubia/AUD/AUD-3.jpg','Dubia/AUD/AUD-4.jpg','Dubia/AUD/AUD-5.jpg','Dubia/AUD/AUD-6.jpg','AUD');">
+                </div>
+
+                <br>
+
+                <div id="sub_AUD" class="hidden">
+                    <p class="uni_description">This 28 years old Emirati higher-education institution has a selective admission policy based on entrance examinations and students' past academic record and grades. International applicants are eligible to apply for enrollment. AUD also provides several academic and non-academic facilities and services to students including a library, housing, sports facilities, financial aids and/or scholarships, study abroad and exchange programs, as well as administrative services.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in American Univerity in Dubai:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Arts and Humanities</td></tr>
+                        <tr><td>Business and Social Sciences</td></tr>
+                        <tr><td>Medicine and Health</td></tr>
+                        <tr><td>Language and Cultural</td></tr>
+                    </table>
+                    <a href="https://www.aud.edu/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+                
+            </div>
+        </div>
+        </section>
+
+
+
+
+
+        <!--Japan-->
+        <section id="Japan">
+        <div class="section">
+            <span class="title"><h1 style="font-size: 30px;">Japan</h1></span>
+            <p class="country_description">In Japan, university education is highly valued and prestigious, with a strong emphasis on academic rigor and achievement.Many universities in Japan have gained worldwide acclaim for their research and innovation, particularly in fields such as science and technology.</p>
+            
+            <!--1'st university-->
+            <div id="UO_university">
+                <h3 class="uni_name"><em>1. University of Tokyo</em></h3>
+                <h5 class="uni_description">The University of Tokyo,  is a Japanese national university that was founded in 1877
+                    The university has three main campuses the Hongo, Komaba and Kashiwa campuses and additional facilities located in other parts of Japan. The university is affiliated with two hospitals: the University Hospital and the Institute of Medical Science Hospital
+                    </h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-4" height="75px" onclick="previous_image('Japan/UOT/UOT-1.jpg','Japan/UOT/UOT-2.jpg','Japan/UOT/UOT-3.jpg','Japan/UOT/UOT-4.png','Japan/UOT/UOT-5.jpeg','Japan/UOT/UOT-6.jpg','UOT');">
+                    <a onclick="view_end('Japan','sub_UOT');" href="#UOT"><img src="Assests/Japan/UOT/UOT-1.jpg" alt="UOT images"  height="400px" width="750px" id="UOT" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-4" height="75px" onclick="next_image('Japan/UOT/UOT-1.jpg','Japan/UOT/UOT-2.jpg','Japan/UOT/UOT-3.jpg','Japan/UOT/UOT-4.png','Japan/UOT/UOT-5.jpeg','Japan/UOT/UOT-6.jpg','UOT');">
+                </div>
+
+                <br>
+
+                <div id="sub_UOT" class="hidden">
+                    <p class="uni_description">UTokyo has 10 main academic divisions for undergraduate education: agriculture, arts and sciences, economics, education, engineering, law, letters, medicine, pharmaceutical sciences and science.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in University of Tokyo:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Space Science</td></tr>
+                        <tr><td>Physics</td></tr>
+                        <tr><td>Math</td></tr>
+                        <tr><td>Medicine and Health</td></tr>
+                    </table>
+                    <a href="https://www.u-tokyo.ac.jp/en/index.html"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+            <!--2'nd university-->
+            <div id="kyoto">
+                <h3 class="uni_name"><em>2. Kyoto University</em></h3>
+                <h5 class="uni_description">Established in 1897, Officially recognized by the Ministry of Education, Culture, Sports, Science and Technology of Japan, Kyoto University is a large coeducational Japanese higher education institution. </h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-3" height="75px" onclick="previous_image('Japan/KU/KU-1.jpg','Japan/KU/KU-2.jpg','Japan/KU/KU-3.png','Japan/KU/KU-4.jpg','Japan/KU/KU-5.jpg','Japan/KU/KU-6.jpg','KU');">
+                    <a onclick="view_end('Japan','sub_kyoto');" href="#KU"><img src="Assests/Japan/KU/KU-1.jpg" alt="KU images"  height="400px" width="750px" id="KU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-3" height="75px" onclick="next_image('Japan/KU/KU-1.jpg','Japan/KU/KU-2.jpg','Japan/KU/KU-3.png','Japan/KU/KU-4.jpg','Japan/KU/KU-5.jpg','Japan/KU/KU-6.jpg','KU');">
+                </div>
+
+                <br>
+
+                <div id="sub_kyoto" class="hidden">
+                    <p class="uni_description">Kyoto University offers courses and programs leading to officially recognized higher education degrees such as bachelor degrees in several areas of study. See the uniRank degree levels and areas of study matrix below for further details. This 125 years old Japanese higher-education institution has a selective admission policy based on entrance examinations. The admission rate range is 0-10% making this Japanese higher education organization a most selective institution. International applicants are eligible to apply for enrollment. Kyoto University also provides several academic and non-academic facilities and services to students including a library, sports facilities, study abroad and exchange programs, as well as administrative services.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in Kyoto University:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Science and Technology</td></tr>
+                        <tr><td>Law</td></tr>
+                        <tr><td>Business</td></tr>
+                        <tr><td>Integrated Human Science</td></tr>
+                    </table>
+                    <a href="https://www.kyoto-u.ac.jp/en"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+            <!--3'rd univerity-->
+            <div id="O_university">
+                <h3 class="uni_name"><em>3. Osaka University</em></h3>
+                <h5 class="uni_description">Osaka University, sometimes called OU, is a Japanese national university that was founded in 1931 as the sixth imperial university of Japan. It is located in Osaka, Japan, and has three main campuses  Suita, Toyonaka and Minoh. Osaka University is ranked #286 in Best Global Universities.</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-5" height="75px" onclick="previous_image('Japan/OU/OU-1.jpg','Japan/OU/OU-2.jpg','Japan/OU/OU-3.jpg','Japan/OU/OU-4.jpg','Japan/OU/OU-5.jpg','Japan/OU/OU-6.jpg','OU');">
+                    <a onclick="view_end('Japan','sub_OU');" href="#OU"><img src="Assests/Japan/OU/OU-1.jpg" alt="OU images"  height="400px" width="750px" id="OU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-4" height="75px" onclick="next_image('Japan/OU/OU-1.jpg','Japan/OU/OU-2.jpg','Japan/OU/OU-3.jpg','Japan/OU/OU-4.jpg','Japan/OU/OU-5.jpg','Japan/OU/OU-6.jpg','OU');">
+                </div>
+
+                <br>
+
+                <div id="sub_OU" class="hidden">
+                    <p class="uni_description">Upward of 23,000 students attended the institution in a recent year, and around two-thirds of them studied at the undergraduate level. That same year, roughly 9 percent of the student body was international. Tuition costs are the same for domestic and international students, and university housing is available for both undergraduate and graduate students.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in Osaka Univerity:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Biology &amp; Medicine</td></tr>
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Computer Science</td></tr>
+                        <tr><td>Physics</td></tr>
+                    </table>
+                    <a href="https://www.osaka-u.ac.jp/en"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+            
+        </div>
+        </section>
+
+
+
+
+
+        <!--France-->
+        <section id="France">
+        <div class="section">
+            <span class="title"><h1 style="font-size: 30px;">France</h1></span>
+            <p class="country_description">France has a highly respected higher education system, with some of its universities consistently ranking among the top 100 in the world according to various global rankings. However, the quality and reputation of universities in France can vary greatly, with some being more specialized and renowned in certain fields than others.</p>
+            
+            
+            <!--1'st university-->
+            <div id="Stasbourg">
+                <h3 class="uni_name"><em>1. University of Strasbourg</em></h3>
+                <h5 class="uni_description">Established in 1621, Université de Strasbourg (University of Strasbourg) is a non-profit public higher-education institution located in the medium city of Strasbourg (population range of 250,000-499,999 inhabitants), Grand Est. This institution also has a branch campus in Colmar</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('France/UOS/UOS-1.jpg','France/UOS/UOS-2.jpg','France/UOS/UOS-3.jpg','France/UOS/UOS-4.png','France/UOS/UOS-5.png','France/UOS/UOS-6.png','UOS');">
+                    <a onclick="view_end('France','sub_UOS');" href="#UOS"><img src="Assests/France/UOS/UOS-1.jpg" alt="UOS images"  height="400px" width="750px" id="UOS" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('France/UOS/UOS-1.jpg','France/UOS/UOS-2.jpg','France/UOS/UOS-3.jpg','France/UOS/UOS-4.png','France/UOS/UOS-5.png','France/UOS/UOS-6.png','UOS');">
+                </div>
+
+                <br>
+
+                <div id="sub_UOS" class="hidden">
+                    <p class="uni_description">Officially recognized by the igher Education, Research and Innovation of France, Université de Strasbourg is a very large  coeducational French higher education institution. Université de Strasbourg offers courses and programs leading to officially recognized higher education degrees such as bachelor degrees in several areas of study. </p>
+                    <h5 class="hidden_best_majors">Best Majors to study in Osaka Univerity:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Science &amp; Technology</td></tr>
+                        <tr><td>Business</td></tr>
+                        <tr><td>Humanities and Social Science</td></tr>
+                    </table>
+                    <a href="https://en.unistra.fr/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+
+            <!--2'nd univeristy-->
+            <div id="Paris">
+                <h3 class="uni_name"><em>2. University of Paris</em></h3>
+                <h5 class="uni_description">Founded in 2019, Université de Paris (University of Paris) is a non-profit public higher-education institution located in the large metropolis of Paris </h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('France/UOP/UOP-1.png','France/UOP/UOP-2.jpg','France/UOP/UOP-3.jpg','France/UOP/UOP-4.jpg','France/UOP/UOP-5.jpg','France/UOP/UOP-6.jpg','UOP');">
+                    <a onclick="view_end('France','sub_UOP');" href="#UOP"><img src="Assests/France/UOP/UOP-1.png" alt="UOP images"  height="400px" width="750px" id="UOP" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('France/UOP/UOP-1.png','France/UOP/UOP-2.jpg','France/UOP/UOP-3.jpg','France/UOP/UOP-4.jpg','France/UOP/UOP-5.jpg','France/UOP/UOP-6.jpg','UOP');">
+                </div>
+
+                <br>
+
+                <div id="sub_UOP" class="hidden">
+                    <p class="uni_description">Officially recognized by the Ministry of Higher Education, Research and Innovation of France, Université de Paris is a very large coeducational French higher education institution. Université de Paris offers courses and programs leading to officially recognized higher education degrees such as pre-bachelor degrees (i.e. certificates, diplomas, associate or foundation), bachelor degrees, master degrees, doctorate degrees in several areas of study.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in University of Paris:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Medicine &amp; Health</td></tr>
+                        <tr><td>Biology</td></tr>
+                        <tr><td>Science &amp; IT</td></tr>
+                        <tr><td>Language &amp; Cultural</td></tr>
+                    </table>
+                    <a href="https://u-paris.fr/en/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+
+            <!--3'rd university-->
+            <div id="Lille">
+                <h3 class="uni_name"><em>3. University of Lille</em></h3>
+                <h5 class="uni_description">Founded in 2018, Université de Lille (University of Lille) is a non-profit public higher-education institution located in the suburban setting of the small city of Lille </h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('France/UOL/UOL-1.jpg','France/UOL/UOL-2.jpg','France/UOL/UOL-3.jpg','France/UOL/UOL-4.jpg','France/UOL/UOL-5.jpg','France/UOL/UOL-6.jpg','UOL');">
+                    <a onclick="view_end('France','sub_UOL');" href="#UOL"><img src="Assests/France/UOL/UOL-1.jpg" alt="UOL images"  height="400px" width="750px" id="UOL" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('France/UOL/UOL-1.jpg','France/UOL/UOL-2.jpg','France/UOL/UOL-3.jpg','France/UOL/UOL-4.jpg','France/UOL/UOL-5.jpg','France/UOL/UOL-6.jpg','UOL');">
+                </div>
+
+                <br>
+
+                <div id="sub_UOL" class="hidden">
+                    <p class="uni_description">Université de Lille offers courses and programs leading to officially recognized higher education degrees such as bachelor degrees in several areas of study.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in University of Lille:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Philosophy &amp; arts</td></tr>
+                        <tr><td>Political &amp; International Studies</td></tr>
+                        <tr><td>Sociology</td></tr>
+                    </table>
+                    <a href="https://www.univ-lille.fr/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+        </div>
+        </section>
+
+
+
+
+        <!--Singapore-->
+        <section id="Singapore">
+        <div class="section">
+            <span class="title"><h1 style="font-size: 30px;">Singapore</h1></span>
+            <p class="country_description">Singapore is home to some of the world's top universities, such as the National University of Singapore (NUS) and the Nanyang Technological University (NTU), which consistently rank highly in global university rankings. These universities offer a high-quality education and attract students from all over the world.</p>
+
+            
+            
+            <!--1'st university-->
+            <div id="National">
+                <h3 class="uni_name"><em>1. National University of Singapore</em></h3>
+                <h5 class="uni_description">National University of Singapore is a public university located in the urban setting of the metropolis of Singapore This institution also has a branch campus in Bukit Timah and Outram</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Singapore/NUS/NUS-1.png','Singapore/NUS/NUS-2.jpg','Singapore/NUS/NUS-3.jpg','Singapore/NUS/NUS-4.jpg','Singapore/NUS/NUS-5.png','Singapore/NUS/NUS-6.jpg','NUS');">
+                    <a onclick="view_end('Singapore','sub_NUS');" href="#NUS"><img src="Assests/Singapore/NUS/NUS-1.png" alt="NUS images"  height="400px" width="750px" id="NUS" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Singapore/NUS/NUS-1.png','Singapore/NUS/NUS-2.jpg','Singapore/NUS/NUS-3.jpg','Singapore/NUS/NUS-4.jpg','Singapore/NUS/NUS-5.png','Singapore/NUS/NUS-6.jpg','NUS');">
+                </div>
+
+                <br>
+
+                <div id="sub_NUS" class="hidden">
+                    <p class="hidden_description">National University of Singapore (NUS) offers courses and programs leading to officially recognized higher education degrees such as bachelor degrees, master degrees, doctorate degrees in several areas of study.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in National Univerity of Singapore:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Accounting &amp; Finance</td></tr>
+                        <tr><td>Medicine &amp; Health</td></tr>
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Science</td></tr>
+                    </table>
+                    <a href="https://nus.edu.sg/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+            
+            
+            <!--2'nd university-->
+            <div id="Nayang">
+                <h3 class="uni_name"><em>2. Nanyang Technological University</em></h3>
+                <h5 class="uni_description">Founded in 1955, Nanyang Technological University is a non-profit public higher-education institution located in the suburban setting of the metropolis of Singapore. Officially recognized by the Ministry of Education - Higher Education Division of Singapore</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Singapore/NTU/NTU-1.jpg','Singapore/NTU/NTU-2.jpg','Singapore/NTU/NTU-3.jpg','Singapore/NTU/NTU-4.jpg','Singapore/NTU/NTU-5.jpg','Singapore/NTU/NTU-6.png','NTU');">
+                    <a onclick="view_end('Singapore','sub_NTU');" href="#NTU"><img src="Assests/Singapore/NTU/NTU-1.jpg" alt="NTU images"  height="400px" width="750px" id="NTU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Singapore/NTU/NTU-1.jpg','Singapore/NTU/NTU-2.jpg','Singapore/NTU/NTU-3.jpg','Singapore/NTU/NTU-4.jpg','Singapore/NTU/NTU-5.jpg','Singapore/NTU/NTU-6.png','NTU');">
+                </div>
+
+                <br>
+
+                <div id="sub_NTU" class="hidden">
+                    <p class="hidden_description">(NTU) offers courses and programs leading to officially recognized higher education degrees such as pre-bachelor degrees (i.e. certificates, diplomas, associate or foundation), bachelor degrees, master degrees, doctorate degrees in several areas of study</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in Nayang Technological University:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Computer science &amp; Engineering</td></tr>
+                        <tr><td>Mathematics &amp; Statistics</td></tr>
+                        <tr><td>Electronic &amp; Electrical Engineering</td></tr>
+                        <tr><td>Business</td></tr>
+                    </table>
+                    <a href="https://www.ntu.edu.sg/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+
+            <!--3rd university-->
+            <div id="Management">
+                <h3 class="uni_name"><em>3. Singapore Management University</em></h3>
+                <h5 class="uni_description">Established in 2000, Singapore Management University is a non-profit public higher-education institution located in the urban setting of the metropolis of Singapore</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Singapore/SMU/SMU-1.jpg','Singapore/SMU/SMU-2.jpg','Singapore/SMU/SMU-3.jpg','Singapore/SMU/SMU-4.jpg','Singapore/SMU/SMU-5.jpg','Singapore/SMU/SMU-6.jpg','SMU');">
+                    <a onclick="view_end('Singapore','sub_SMU');" href="#SMU"><img src="Assests/Singapore/SMU/SMU-1.jpg" alt="SMU images"  height="400px" width="750px" id="SMU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Singapore/SMU/SMU-1.jpg','Singapore/SMU/SMU-2.jpg','Singapore/SMU/SMU-3.jpg','Singapore/SMU/SMU-4.jpg','Singapore/SMU/SMU-5.jpg','Singapore/SMU/SMU-6.jpg','SMU');">
+                </div>
+
+                <br>
+
+                <div id="sub_SMU" class="hidden">
+                    <p class="hidden_description">Singapore Management University (SMU) offers courses and programs leading to officially recognized higher education degrees such as bachelor degrees in several areas of study.</p>
+                    <h5 class="hidden_best_majors">Best Majors to study in Singapore Management University</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Business Management</td></tr>
+                        <tr><td>MIS (Management Information Systems)</td></tr>
+                        <tr><td>Tourism and Hospitality</td></tr>
+                        <tr><td>Public Administration</td></tr>
+                    </table>
+                    <a href="https://www.smu.edu.sg/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <section id="Lebanon">
+        <div class="section">
+            <span class="title"><h1 style="font-size: 30px;">Lebanon</h1></span>
+            <p class="country_description">Lebanon has many options of good universities, where you can trust completing your higher education through.</p>
+            
+            
+            
+            <!--1'st university-->
+            <div id="American_University">
+                <h3 class="uni_name"><em>1. American University of Beirut</em></h3>
+                <h5 class="uni_description">Ranked 5th in the Arab region, the American University of Beirut (AUB) is a private and secular university with about 8,400 students, of which over 1,700 are international, coming from 77 different countries. As you may gather from the name, teaching is conducted in English.</h5>
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Lebanon/AUB/AUB-1.jpg','Lebanon/AUB/AUB-2.jpg','Lebanon/AUB/AUB-3.jpg','Lebanon/AUB/AUB-4.jpg','Lebanon/AUB/AUB-5.jpg','Lebanon/AUB/AUB-6.jpg','AUB');">
+                    <a onclick="view_end('Lebanon','sub_AUB');" href="#AUB"><img src="Assests/Lebanon/AUB/AUB-1.jpg" alt="AUB images"  height="400px" width="750px" id="AUB" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Lebanon/AUB/AUB-1.jpg','Lebanon/AUB/AUB-2.jpg','Lebanon/AUB/AUB-3.jpg','Lebanon/AUB/AUB-4.jpg','Lebanon/AUB/AUB-5.jpg','Lebanon/AUB/AUB-6.jpg','AUB');">
+                </div>
+
+                <br>
+
+                <div id="sub_AUB" class="hidden">
+                    <p class="hidden_description">The American University of Beirut was founded in 1866 and states that it “bases its educational philosophy, standards, and practices on the American liberal arts model of higher education”. There are more than 130 programs available in seven faculties. AUB is a member of various international associations and has collaborated with many overseas institutions, including the US’s Columbia University and Johns Hopkins University School of Medicine.</p>
+                    <h5 class="hidden_best_majors">Best Fields to Study in AUB: </h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Medicine &amp; Health Care</td></tr>
+                        <tr><td>Biology &amp;chemistry</td></tr>
+                        <tr><td>Computer Science</td></tr>
+                        <tr><td>Engineering</td></tr>
+                    </table>
+                    <a href="https://www.aub.edu.lb/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+
+            <!--2'nd university-->
+            <div id="Lebanese_American">
+                <h3 class="uni_name"><em>2. Lebanese American University</em></h3>
+                <h5 class="uni_description">Ranked 551-560 in the world and 22nd in the Arab region, located in Beirut and Byblos, the Lebanese American University is a private, secular university which conducts teaching in English. It is a member of the Association of American International Colleges and Universities, which enables student exchanges and allows information to be shared amongst member institutions.</h5>
+                
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Lebanon/LAU/LAU-1.jpg','Lebanon/LAU/LAU-2.jpg','Lebanon/LAU/LAU-3.jpg','Lebanon/LAU/LAU-4.jpg','Lebanon/LAU/LAU-5.jpg','Lebanon/LAU/LAU-6.jpg','LAU');">
+                    <a onclick="view_end('Lebanon','sub_LAU');" href="#LAU"><img src="Assests/Lebanon/LAU/LAU-1.jpg" alt="LAU images"  height="400px" width="750px" id="LAU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Lebanon/LAU/LAU-1.jpg','Lebanon/LAU/LAU-2.jpg','Lebanon/LAU/LAU-3.jpg','Lebanon/LAU/LAU-4.jpg','Lebanon/LAU/LAU-5.jpg','Lebanon/LAU/LAU-6.jpg','LAU');">
+                </div>
+                
+                <div id="sub_LAU" class="hidden">
+                    <p class="hidden_description">The Lebanese American University (LAU) was founded in 1835 and had more than 8,300 students enrolled as of Autumn 2015, of which 19% are from abroad.</p>
+                    <h5 class="hidden_best_majors">Best Fields to Study in LAU: </h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td>Medicine</td></tr>
+                        <tr><td>Art &amp; Science</td></tr>
+                        <tr><td>Engineering</td></tr>
+                        <tr><td>Computer Science</td></tr>
+                    </table>
+                    <a href="https://www.lau.edu.lb/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+
+
+
+            <!--3'rd univeristy-->
+            <div id="Lebanese_University">
+                <h3 class="uni_name"><em>3. Lebanese University</em></h3>
+                <h5 class="uni_description">Lebanese University is the only public university in Lebanon  is ranked #701-750 worldwide in terms of education.</h5>
+
+                <br><br>
+
+                <!--Images that will change-->
+                <div class="navigate">
+                    <input type="image" src="Assests/others/previous.png" alt="previous" class="prev" name="prev-6" height="75px" onclick="previous_image('Lebanon/LU/LU-1.jpg','Lebanon/LU/LU-2.jpg','Lebanon/LU/LU-3.jpg','Lebanon/LU/LU-4.jpg','Lebanon/LU/LU-5.jpg','Lebanon/LU/LU-6.jpg','LU');">
+                    <a onclick="view_end('Lebanon','sub_LU');" href="#LU"><img src="Assests/Lebanon/LU/LU-1.jpg" alt="LU images"  height="400px" width="750px" id="LU" class="nav_image"></a>
+                    <input type="image" src="Assests/others/next.png" alt="next" class="next" name="next-6" height="75px" onclick="next_image('Lebanon/LU/LU-1.jpg','Lebanon/LU/LU-2.jpg','Lebanon/LU/LU-3.jpg','Lebanon/LU/LU-4.jpg','Lebanon/LU/LU-5.jpg','Lebanon/LU/LU-6.jpg','LU');">
+                </div>
+
+                <div id="sub_LU" class="hidden">
+                    <p class="hidden_description">The creation of the Lebanese University was an idea first mentioned in the speech of the former Minister of Foreign Affairs, Mr Hami Frangieh, during the closing ceremony of the Third UNESCO Conference in Beirut held on 11 December 1948, during which he said: "Lebanon hopes to see the creation of a Lebanese university having the spirit of UNESCO</p>
+                    <h5 class="hidden_best_majors">Best Fields to Study in LU:</h5>
+                    <table border="1" class="Best_Majors">
+                        <tr><td><b>Faculty of science being the most popular among other faculities and include these fields</b>
+                            <br><br> Biology, Chemistry, Math, Physics, Computer Science</td></tr>
+                        <tr><td>Engineering</td></tr>
+                        <tr><td><b>Medicine and HealthCare inculding: </b>
+                            <br><br>Medicine, Dentistry, Pharmacy, Nursing</td></tr>
+                        <tr><td>Art &amp; Humanities</td></tr>
+                    </table>
+                    <a href="https://www.ul.edu.lb/"><h4 class="hidden_button">visit website</h4></a>
+                </div>
+            </div>
+        </div>    
+        </section>     
+
+
+        <div id="footer_application">
+            <div id="footer_application_header">
+            <img src="Assests/others/choose3.jpg" width="700px" id="footer_application_image">
+            <div id="form-header">
+                <h2>Choose the University You Liked</h2>
+                <p style="font-size: 15px;font-style:italic;">Apply Here and get a 20% discount</p>
+            </div>
+            </div>
+            
+            <form id="footer_form" name="footer_form" id="footer_form" action="Email.html" onsubmit="return validate_form('footer_form');">
+
+                <div id="footer_header_container">
+                    <div>
+                    <label for="name">Name: </label>
+                    <input type="textbox" id="name" name="name" placeholder="First-Name Last-Name">
+                    </div>
+
+                    <div>
+                    <label for="email">Email: </label>
+                    <input type="textbox" id="email" name="email" placeholder="example@gmail.com">
+                    </div>
+
+                    <div>
+                    <label for="date">Date: </label>
+                    <input type="date" id="date" name="date">
+                    </div>
+                
+                    <select id="country_select">
+                        <option name="dubai">Dubai</option>
+                        <option name="japan">Japan</option>
+                        <option name="france">France</option>
+                        <option name="singapore">Singapore</option>
+                        <option name="lebanon">Lebanon</option>
+                    </select>
+                </div>
+
+                <div id="dubai">
+                    <div>
+                    <label for="uow">University of Wollongong</label>
+                    <input type="radio" id="uow" name="dubai">
+                    </div>
+                
+                    <div>
+                    <label for="uod">University of Dubai</label>
+                    <input type="radio" id="uod" name="dubai">
+                    </div>
+
+                    <div>
+                    <label for="aud">American Univeristy in Dubai</label>
+                    <input type="radio" id="aud" name="dubai">
+                    </div>
+
+                </div>
+
+                <div id="japan">
+                    <div>
+                    <label for="uot">University of Tokyo</label>
+                    <input type="radio" id="uot" name="japan">
+                    </div>
+
+                    <div>
+                    <label for="ku">Kyoto Univeristy</label>
+                    <input type="radio" if="ku" name="japan">
+                    </div>
+
+                    <div>
+                    <label for="ou">Osaka University</label>
+                    <input type="radio" id="uot" name="japan">
+                    </div>
+
+                </div>
+
+                <div id="france">
+
+                    <div>
+                    <label for="uos">University of Strasbourg</label>
+                    <input type="radio" id="uos" name="france">
+                    </div>
+
+                    <div>
+                    <label for="uop">University of Paris</label>
+                    <input type="radio" id="uop" name="france">
+                    </div>
+
+                    <div>
+                    <label for="uol">University of Lille</label>
+                    <input type="radio" id="uol" name="france">
+                    </div>
+
+                </div>
+
+                <div id="singapore">
+
+                    <div>
+                    <label for="nus">National Univeristy of Singapore</label>
+                    <input type="radio" id="uol" name="singapore">
+                    </div>
+
+                    <div>
+                    <label for="ntu">Nayang Technological Univeristy</label>
+                    <input type="radio" id="ntu" name="singapore">
+                    </div>
+
+                    <div>
+                    <label for="smu">Singapore Management Univeristy</label>
+                    <input type="radio" id="smu" name="singapore">
+                    </div>
+
+
+                </div>
+
+                <div id="lebanon">
+
+                    <div>
+                    <label for="aub">American University of Beirut</label>
+                    <input type="radio" id="aub" name="lebanon">
+                    </div>
+
+                    <div>
+                    <label for="lau">Lebanese American University</label>
+                    <input type="radio" id="lau" name="lebanon">
+                    </div>
+
+                    <div>
+                    <label for="lu">Lebanese University</label>
+                    <input type="radio" id="lu" name="lebanon">
+                    </div>
+
+                </div>
+
+                <script>
+                    var choice = document.getElementById('country_select');
+                    var buttons1 = document.getElementById("dubai");
+                    var buttons2 = document.getElementById("japan");
+                    var buttons3 = document.getElementById("france");
+                    var buttons4 = document.getElementById("singapore");
+                    var buttons5 = document.getElementById("lebanon");
+
+                    choice.addEventListener('change', function change_div(event){
+                        if (event.target.value === "Dubai"){
+                            buttons1.style.display = "flex";
+                            buttons2.style.display = "none";
+                            buttons3.style.display = "none";
+                            buttons4.style.display = "none";
+                            buttons5.style.display = "none";
+
+                        }
+                        else if(event.target.value === "Japan"){
+                            buttons1.style.display = "none";
+                            buttons2.style.display = "flex";
+                            buttons3.style.display = "none";
+                            buttons4.style.display = "none";
+                            buttons5.style.display = "none";
+                        }
+                        else if(event.target.value === "France"){
+                            buttons1.style.display = "none";
+                            buttons2.style.display = "none";
+                            buttons3.style.display = "flex";
+                            buttons4.style.display = "none";
+                            buttons5.style.display = "none";
+                        }
+                        else if(event.target.value === "Singapore"){
+                            buttons1.style.display = "none";
+                            buttons2.style.display = "none";
+                            buttons3.style.display = "none";
+                            buttons4.style.display = "flex";
+                            buttons5.style.display = "none";
+                        }
+                        else if(event.target.value === "Lebanon"){
+                            buttons1.style.display = "none";
+                            buttons2.style.display = "none";
+                            buttons3.style.display = "none";
+                            buttons4.style.display = "none";
+                            buttons5.style.display = "flex";
+                        }
+                        
+                        
+                    })
+                </script>
+                
+                <br>
+
+                <div id="form_footer_container_textarea">
+                <textarea placeholder="Letter for university application" cols="25" rows="5" id="textarea" name="textarea"></textarea>
+                </div>
+                <br>
+                <div id="form_footer_container_buttons">
+                <input type="submit" id="submit" name="sunmit">
+                <input type="reset" id="reset" name="reset">
+                </div>
+            
+            </form>
+        </div>
+        <button id="scroll-to-top" style="display: none;">Scroll to Top</button>
+        <script>
+            // Get the scroll-to-top button
+            var scrollToTopButton = document.getElementById("scroll-to-top");
+
+            // Show the button when the user has scrolled down one-quarter of the page's height
+            window.addEventListener("scroll", function() {
+            if (window.scrollY > (document.documentElement.scrollHeight / 4)) {
+                scrollToTopButton.style.display = "block";
+            } 
+            else {
+                scrollToTopButton.style.display = "none";
+            }
+            });
+
+            // Scroll to the top of the page when the button is clicked
+            scrollToTopButton.addEventListener("click", function() {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+
+            //making the button shakes
+            // Get the scroll-to-top button
+            var scrollToTopButton = document.getElementById("scroll-to-top");
+
+            // Add the "shake" class to the button every 3 seconds
+            setInterval(function() {
+                scrollToTopButton.classList.add("shake");
+                setTimeout(function() {
+                    scrollToTopButton.classList.remove("shake");
+                }, 500);
+            }, 3000);
+
+        </script>
+    </main>
+    <footer> 
+
+        Copyright &copy; Sky High Travel <br>
+      <a href="mailto:SkyHighTravel@hotmail.com"> skyHighTravel@hotmail.com </a>
+      
+      <div id = "lastm" > </div>
+      
+      </footer>
+</body>
+</html>
